@@ -19,6 +19,7 @@ class ShopRouter {
 		this.router.post('/cart-delete-item', CartController.deleteProduct);
 		this.router.get('/orders', OrderController.getOrders);
 		this.router.get('/checkout', CheckoutController.index);
+		this.router.post('/create-order', OrderController.createOrder);
 	}
 }
 

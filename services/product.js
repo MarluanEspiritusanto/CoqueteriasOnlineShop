@@ -15,8 +15,8 @@ class ProductService {
 		return ProductRepository.createProduct(product);
 	}
 
-	editProduct(id, product) {
-		return ProductRepository.editProduct(id, product);
+	editProduct(productId, product) {
+		return ProductRepository.editProduct(productId, product);
 	}
 
 	deleteProduct(productId) {

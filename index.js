@@ -3,6 +3,7 @@ const express = require('express');
 const server = express();
 const bodyParser = require('body-parser');
 const path = require('path');
+const { UserModel } = require('./domain/entities');
 
 class Server {
 	static async start() {
@@ -15,6 +16,15 @@ class Server {
 			server.set('view engine', 'ejs');
 			server.set('views', './application/views');
 
+			server.use((req, res, next) => {
+				UserModel.findById('5bd661dc4bd7593159b3aa91')
+					.then(user => {
+						req.user = user;
+						next();
+					})
+					.catch(console.log);
+			});
+
 			// Injecting routes to express instance
 			const RouterInjector = require('./application/routes');
 			RouterInjector.inject(server);
@@ -22,6 +32,21 @@ class Server {
 			// Database Connection
 			const connection = require('./infraestructure/database/connection');
 			await connection();
+
+			// Default user config
+
+			UserModel.findOne().then(user => {
+				if (!user) {
+					const user = new UserModel({
+						name: 'Marluan',
+						email: 'Marluan@test.com',
+						cart: {
+							items: []
+						}
+					});
+					user.save();
+				}
+			});
 
 			server.listen(PORT, () => {
 				console.log(`Application running on port ${PORT}`);

@@ -1,6 +1,6 @@
 const { ProductRepository } = require('../../infraestructure/repositories');
 class AdminController {
-	async getProducts(req, res, next) {
+	async getProducts(req, res) {
 		const products = await ProductRepository.getProducts();
 		return res.render('admin/products', {
 			prods: products,
@@ -9,7 +9,7 @@ class AdminController {
 		});
 	}
 
-	getCreateProduct(req, res, next) {
+	getCreateProduct(req, res) {
 		return res.render('admin/edit-product', {
 			pageTitle: 'Add Product',
 			path: '/admin/add-product',
@@ -17,30 +17,36 @@ class AdminController {
 		});
 	}
 
-	async postCreateProduct(req, res, next) {
+	async postCreateProduct(req, res) {
 		const product = req.body;
+		product.userId = req.user;
 		await ProductRepository.createProduct(product);
 		return res.redirect('/');
 	}
 
-	getEditProduct(req, res, next) {
+	async getEditProduct(req, res) {
+		const { productId } = req.params;
+		const product = await ProductRepository.getProduct(productId);
+		const { edit } = req.query;
+		if (!edit) {
+			return res.redirect('/');
+		}
 		return res.render('admin/edit-product', {
 			pageTitle: 'Edit Product',
 			path: '/admin/edit-product',
-			editing: editMode,
+			editing: edit,
 			product: product
 		});
 	}
 
-	async postEditProduct(req, res, next) {
+	async postEditProduct(req, res) {
 		const product = req.body;
-		const { productId } = req.params;
-		await ProductRepository.editProduct(productId, product);
+		await ProductRepository.editProduct(product.productId, product);
 		return res.redirect('/admin/products');
 	}
 
-	async deleteProduct(req, res, next) {
-		const { productId } = req.params;
+	async deleteProduct(req, res) {
+		const { productId } = req.body;
 		await ProductRepository.deleteProduct(productId);
 		return res.redirect('/admin/products');
 	}

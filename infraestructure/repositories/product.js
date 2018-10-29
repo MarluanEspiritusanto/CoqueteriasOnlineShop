@@ -2,7 +2,7 @@ const { ProductModel } = require('../../domain/entities');
 
 class ProductRepository {
 	getProducts() {
-		const products = ProductModel.find();
+		const products = ProductModel.find().populate('userId');
 		return products;
 	}
 
@@ -15,8 +15,8 @@ class ProductRepository {
 		return ProductModel.create(product);
 	}
 
-	editProduct(id, product) {
-		return ProductModel.findByIdAndUpdate(id, product);
+	editProduct(productId, product) {
+		return ProductModel.findByIdAndUpdate(productId, product);
 	}
 
 	deleteProduct(productId) {
