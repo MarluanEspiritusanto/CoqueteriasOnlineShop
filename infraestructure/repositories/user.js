@@ -11,6 +11,11 @@ class UserRepository {
 		return user;
 	}
 
+	getUserByEmail(email) {
+		const user = UserModel.findOne({ email });
+		return user;
+	}
+
 	createUser(user) {
 		return UserModel.create(user);
 	}

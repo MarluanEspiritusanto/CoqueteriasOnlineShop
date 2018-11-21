@@ -6,7 +6,8 @@ class CartController {
 		return res.render('shop/cart', {
 			path: '/cart',
 			pageTitle: 'Your Cart',
-			products
+			products,
+			isAuthenticated: req.session.isLoggedIn
 		});
 	}
 

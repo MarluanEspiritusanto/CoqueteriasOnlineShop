@@ -7,6 +7,8 @@ const {
 	ProductController
 } = require('../controllers');
 
+const { AuthMDW } = require('../middlewares');
+
 class ShopRouter {
 	constructor() {
 		this.router = express.Router();
@@ -15,11 +17,11 @@ class ShopRouter {
 		this.router.get('/products', ProductController.getProducts);
 		this.router.get('/products/:productId', ProductController.getProduct);
 		this.router.get('/cart', CartController.getCart);
-		this.router.post('/cart', CartController.createCart);
-		this.router.post('/cart-delete-item', CartController.deleteProduct);
-		this.router.get('/orders', OrderController.getOrders);
-		this.router.get('/checkout', CheckoutController.index);
-		this.router.post('/create-order', OrderController.createOrder);
+		this.router.post('/cart', AuthMDW, CartController.createCart);
+		this.router.post('/cart-delete-item', AuthMDW, CartController.deleteProduct);
+		this.router.get('/orders', AuthMDW, OrderController.getOrders);
+		this.router.get('/checkout', AuthMDW, CheckoutController.index);
+		this.router.post('/create-order', AuthMDW, OrderController.createOrder);
 	}
 }
 

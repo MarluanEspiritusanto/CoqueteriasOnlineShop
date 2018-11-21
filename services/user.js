@@ -11,6 +11,11 @@ class UserService {
 		return user;
 	}
 
+	getUserByEmail(email) {
+		const user = UserRepository.getUserByEmail(email);
+		return user;
+	}
+
 	createUser(user) {
 		return UserRepository.createUser(user);
 	}

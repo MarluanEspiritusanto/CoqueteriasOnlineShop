@@ -4,5 +4,6 @@ module.exports = {
 	CheckoutController: require('./checkout'),
 	OrderController: require('./order'),
 	ShopController: require('./shop'),
-	ProductController: require('./product')
+	ProductController: require('./product'),
+	AuthController: require('./auth')
 };

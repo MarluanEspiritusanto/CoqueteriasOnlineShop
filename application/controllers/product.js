@@ -7,7 +7,8 @@ class ProductController {
 		return res.render('shop/product-detail', {
 			product: product,
 			pageTitle: product.title,
-			path: '/products'
+			path: '/products',
+			isAuthenticated: req.session.isLoggedIn
 		});
 	}
 
@@ -16,7 +17,8 @@ class ProductController {
 		return res.render('shop/product-list', {
 			prods: products,
 			pageTitle: 'All Products',
-			path: '/products'
+			path: '/products',
+			isAuthenticated: req.session.isLoggedIn
 		});
 	}
 
@@ -24,7 +26,8 @@ class ProductController {
 		res.render('admin/edit-product', {
 			pageTitle: 'Add Product',
 			path: '/admin/add-product',
-			editing: false
+			editing: false,
+			isAuthenticated: req.session.isLoggedIn
 		});
 	}
 
@@ -44,7 +47,8 @@ class ProductController {
 			pageTitle: 'Edit Product',
 			path: '/admin/edit-product',
 			editing: edit,
-			product: {}
+			product: {},
+			isAuthenticated: req.session.isLoggedIn
 		});
 	}
 

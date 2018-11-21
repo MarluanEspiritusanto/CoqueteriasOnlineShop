@@ -7,7 +7,8 @@ class UserController {
 		return res.render('shop/user-detail', {
 			user: user,
 			pageTitle: user.title,
-			path: '/users'
+			path: '/users',
+			isAuthenticated: req.session.isLoggedIn
 		});
 	}
 
@@ -16,7 +17,8 @@ class UserController {
 		return res.render('shop/user-list', {
 			users: users,
 			pageTitle: 'All Users',
-			path: '/users'
+			path: '/users',
+			isAuthenticated: req.session.isLoggedIn
 		});
 	}
 
@@ -24,7 +26,8 @@ class UserController {
 		res.render('admin/edit-user', {
 			pageTitle: 'Add user',
 			path: '/admin/add-user',
-			editing: false
+			editing: false,
+			isAuthenticated: req.session.isLoggedIn
 		});
 	}
 
@@ -44,7 +47,8 @@ class UserController {
 			pageTitle: 'Edit user',
 			path: '/admin/edit-user',
 			editing: edit,
-			user
+			user,
+			isAuthenticated: req.session.isLoggedIn
 		});
 	}
 

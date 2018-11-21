@@ -4,7 +4,8 @@ class CheckoutController {
 	index(req, res) {
 		return res.render('shop/checkout', {
 			path: '/checkout',
-			pageTitle: 'Checkout'
+			pageTitle: 'Checkout',
+			isAuthenticated: req.session.isLoggedIn
 		});
 	}
 }

@@ -5,7 +5,8 @@ class AdminController {
 		return res.render('admin/products', {
 			prods: products,
 			pageTitle: 'Admin Products',
-			path: '/admin/products'
+			path: '/admin/products',
+			isAuthenticated: req.session.isLoggedIn
 		});
 	}
 
@@ -13,7 +14,8 @@ class AdminController {
 		return res.render('admin/edit-product', {
 			pageTitle: 'Add Product',
 			path: '/admin/add-product',
-			editing: false
+			editing: false,
+			isAuthenticated: req.session.isLoggedIn
 		});
 	}
 
@@ -35,7 +37,8 @@ class AdminController {
 			pageTitle: 'Edit Product',
 			path: '/admin/edit-product',
 			editing: edit,
-			product: product
+			product: product,
+			isAuthenticated: req.session.isLoggedIn
 		});
 	}
 

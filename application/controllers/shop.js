@@ -6,7 +6,8 @@ class ShopController {
 		res.render('shop/index', {
 			prods: products,
 			pageTitle: 'Shop',
-			path: '/'
+			path: '/',
+			isAuthenticated: req.session.isLoggedIn
 		});
 	}
 }
